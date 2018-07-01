@@ -48,3 +48,202 @@
 % rectangle('Position',STATS(i).BoundingBox,'EdgeColor','r');
 % hold on;
 % end
+
+
+% I = imread('原图像二.tiff');
+% f = rgb2gray(I);
+% g=zeros(size(f));
+% id = f >=  35;
+% g(id) = 1;
+% s = strel('line',40,0);
+% fo=imopen(id,s);
+% flag1 = 1; 
+% flag2 = 1;
+% for i = 1 : 1 : 492
+%     if fo(i,200) == 1 && flag1 == 1
+%         y1 = i;
+%         flag1 = 0;
+%     end
+%     if fo(i,300) == 1 && flag2 == 1 
+%         y2 = i; 
+%         flag2 = 0;
+%     end
+% end
+% angle2 = atan(tan((y2-y1)/100))*180/pi;
+% B1 = imrotate(fo,angle2,'crop');
+% B2 = imrotate(f, angle2,'crop');
+% B3 = imrotate(I, angle2,'crop');
+% id3 = B2 >=210;
+% g(id3) =0;
+% s2 = strel('line',10,0);
+% s3 = strel('line',10,90);
+% id4 = imopen(id3,s2);
+% id5 = imclose(id4,s3);
+% [L,num]=bwlabel(id5);
+% STATS = regionprops(L,'BoundingBox');
+% figure,
+% subplot(2,2,1),imshow(I);title('原图像');
+% subplot(2,2,2);imshow(id);title('处理图像-阈值分割(>35=1)');
+% subplot(2,2,3);imshow(fo);title('再处理图像-开运算');
+% subplot(2,2,4);imshow(B1);title('旋转分割图像');
+% figure,
+% subplot(2,2,1);imshow(id3);title('找缺陷图像-（阈值>210=0)');
+% subplot(2,2,2);imshow(id4);title('找缺陷图像-开运算');
+% subplot(2,2,3);imshow(id5);title('找缺陷图像-闭运算');
+% subplot(2,2,4);imshow(B3);title('缺陷&商标定位');
+% rectangle('Position',STATS(1).BoundingBox,'EdgeColor','b');
+% for i = 2:num
+% rectangle('Position',STATS(i).BoundingBox,'EdgeColor','r');
+% hold on;
+% end
+
+
+
+% I = imread('原图像三.tiff');
+% f = rgb2gray(I);
+% BW = edge(f);
+% BW2 = imfill(BW, 'holes');
+% flag1 = 1; 
+% flag2 = 1;
+% for i = 1 : 1 : 492
+%     if BW2(i,200) == 1 && flag1 == 1
+%         y1 = i;
+%         flag1 = 0;
+%     end
+%     if BW2(i,300) == 1 && flag2 == 1 
+%         y2 = i; 
+%         flag2 = 0;
+%     end
+% end
+% angle3 = atan(tan((y2-y1)/100))*180/pi;
+% B = imrotate(BW2, angle3,'crop');
+% B2 = imrotate(f, angle3,'crop');
+% B3 = imrotate(I, angle3,'crop');
+% id2 = B2 >=  160;
+% g(id2) =1;
+% id3 = BW2-id2;
+% id4 = imfill(id3, 'holes'); 
+% s2 = strel('disk',15);
+% id5 = imopen(id4,s2);
+% [L,num]=bwlabel(id5);
+% STATS = regionprops(L,'BoundingBox');
+% figure,
+% subplot(2,2,1),imshow(I);title('原图像');
+% subplot(2,2,2);imshow(BW);title('处理图像-边缘检测');
+% subplot(2,2,3);imshow(BW2);title('再处理图像-孔洞填充');
+% subplot(2,2,4);imshow(B);title('旋转图像');
+% figure,
+% subplot(3,2,1),imshow(id2);title('抠药丸图像-（阈值>160=1)');
+% subplot(3,2,2);imshow(BW2);title('原处理图像');
+% subplot(3,2,3);imshow(id3);title('抠药丸图像-（第二张减第一张）');
+% subplot(3,2,4);imshow(id4);title('抠药丸图像-孔洞填充');
+% subplot(3,2,5);imshow(id5);title('抠药丸图像-开运算');
+% subplot(3,2,6);imshow(B3);title('药丸定位');
+% for i = 1:num
+% rectangle('Position',STATS(i).BoundingBox,'EdgeColor','r');
+% hold on;
+% end
+
+
+
+% I = imread('原图像四.tiff');
+% f = rgb2gray(I);
+% BW = edge(f);
+% BW2 = imfill(BW, 'holes');
+% flag1 = 1; 
+% flag2 = 1;
+% for i = 1 : 1 : 492
+%     if BW2(i,200) == 1 && flag1 == 1
+%         y1 = i;
+%         flag1 = 0;
+%     end
+%     if BW2(i,300) == 1 && flag2 == 1 
+%         y2 = i; 
+%         flag2 = 0;
+%     end
+% end
+% angle4 = atan(tan((y2-y1)/100))*180/pi;
+% B = imrotate(BW2, angle4,'crop');
+% B2 = imrotate(f, angle4,'crop');
+% B3 = imrotate(I, angle4,'crop');
+% id2 = B2 >=  100;
+% g(id2) = 1;
+% id3 = BW2-id2;
+% id4 = imfill(id3, 'holes'); 
+% s2 = strel('disk',15);
+% id5 = imopen(id4,s2);
+% [L,num]=bwlabel(id5);
+% STATS = regionprops(L,'BoundingBox');
+% figure,
+% subplot(2,2,1),imshow(I);title('原图像');
+% subplot(2,2,2);imshow(BW);title('处理图像-边缘检测');
+% subplot(2,2,3);imshow(BW2);title('再处理图像-孔洞填充');
+% subplot(2,2,4);imshow(B);title('旋转图像');
+% figure,
+% subplot(3,2,1),imshow(id2);title('抠药丸图像-（阈值>100=1)');
+% subplot(3,2,2);imshow(BW2);title('原处理图像');
+% subplot(3,2,3);imshow(id3);title('抠药丸图像-（第二张减第一张）');
+% subplot(3,2,4);imshow(id4);title('抠药丸图像-孔洞填充');
+% subplot(3,2,5);imshow(id5);title('抠药丸图像-开运算');
+% subplot(3,2,6);imshow(B3);title('药丸定位');
+% for i = 1:num
+% rectangle('Position',STATS(i).BoundingBox,'EdgeColor','r');
+% hold on;
+% end
+
+
+
+I = imread('原图像五.tiff');
+f = rgb2gray(I);
+g=zeros(size(f));
+id = f >=  35;
+g(id) = 1;
+s = strel('line',40,0);
+fo=imopen(id,s);
+BW = edge(fo);
+BW2 = imfill(BW, 'holes');
+flag1 = 1; 
+flag2 = 1;
+for i = 1 : 1 : 492
+    if fo(i,200) == 1 && flag1 == 1
+        y1 = i;
+        flag1 = 0;
+    end
+    if fo(i,300) == 1 && flag2 == 1 
+        y2 = i; 
+        flag2 = 0;
+    end
+end
+angle5 = atan(tan((y2-y1)/100))*180/pi;
+B1 = imrotate(BW2,angle5,'crop');
+B2 = imrotate(f, angle5,'crop');
+B3 = imrotate(I, angle5,'crop');
+id2 = B2 >=  100;
+g(id2) = 1;
+id3 = BW2-id2;
+id4 = imfill(id3, 'holes'); 
+s2 = strel('disk',15);
+id5 = imopen(id4,s2);
+[L,num]=bwlabel(id5);
+STATS = regionprops(L,'BoundingBox');
+figure,
+subplot(3,2,1),imshow(I);title('原图像');
+subplot(3,2,2);imshow(id);title('处理图像-阈值分割');
+subplot(3,2,3);imshow(fo);title('再处理图像-开运算');
+subplot(3,2,4);imshow(BW);title('再处理图像-边缘检测');
+subplot(3,2,5);imshow(BW2);title('再处理图像-孔洞填充');
+subplot(3,2,6);imshow(B1);title('旋转图像');
+figure,
+subplot(3,2,1),imshow(id2);title('抠药丸图像-（阈值>100=1)');
+subplot(3,2,2);imshow(BW2);title('原处理图像');
+subplot(3,2,3);imshow(id3);title('抠药丸图像-（第二张减第一张）');
+subplot(3,2,4);imshow(id4);title('抠药丸图像-孔洞填充');
+subplot(3,2,5);imshow(id5);title('抠药丸图像-开运算');
+subplot(3,2,6);imshow(B3);title('药丸定位');
+for i = 1:num
+rectangle('Position',STATS(i).BoundingBox,'EdgeColor','r');
+hold on;
+end
+
+
+
